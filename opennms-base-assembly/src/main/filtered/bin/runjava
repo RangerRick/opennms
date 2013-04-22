@@ -35,7 +35,7 @@
 # put an '@' here so we don't break maven substition
 
 opennms_home="${install.dir}"
-searchdirs="/usr /opt /Library"
+searchdirs="/usr /opt /Library/Java/JavaVirtualMachines"
 dryrun=0
 
 java_conf="$opennms_home/etc/java.conf"
@@ -114,7 +114,7 @@ javaCheck() {
         fi
 
     ret="`$JP -version 2>&1 | grep ' version \"' | sed 's/^.* version \"//;s/\".*$//'`"
-    if echo "$ret" | egrep '^1\.[6-9]\.' > /dev/null; then
+    if echo "$ret" | egrep '^1\.[7-9]\.' > /dev/null; then
         # Check for Sun Java
         if $JP -version 2>&1 | egrep '^(Diablo )?Java\(TM\)' > /dev/null; then
             return 0
@@ -138,7 +138,7 @@ javaCheck() {
             return 0
         fi
     else
-        tell "$JP is not Java 1.6 or newer."
+        tell "$JP is not Java 1.7 or newer."
         return 1
     fi
 }
@@ -162,7 +162,7 @@ javaPaths() {
                 # We search "j2*" for the Sun-supplied Java packages ("j2sdk"),
                 # "java" for the Java installation shipped with SuSE, and "Home"
                 # to catch /Library/Java/Home on Mac OS X.
-                jdirs="`find \"$searchdir\" -maxdepth 2 \\( -name \"j2*\" -o -name \"jdk*\" -o -name \"java\" -o -name \"Home\" \\) -print`"
+                jdirs="`find \"$searchdir\" -maxdepth 3 \\( -name \"j2*\" -o -name \"jdk*\" -o -name \"java\" -o -name \"Home\" \\) -print`"
                 for jdir in $searchdir/java/default $searchdir/java/latest $jdirs; do
                         if [ -x $jdir/bin/java ]; then
                                 JP=$jdir/bin/java
@@ -291,7 +291,7 @@ checkConfiguredJava() {
 
     if [ $? -ne 0 ]; then
         warn "error: bad version or vendor for configured Java runtime environment"
-        warn "\"$JP -version\" does not report that is version 1.6+ and a compatible JDK."
+        warn "\"$JP -version\" does not report that is version 1.7+ and a compatible JDK."
         warn "$mantra"
 
         return 1
