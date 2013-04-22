@@ -29,7 +29,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+                        <Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
                         <Vaadin-Application>org.opennms.features.jmxconfiggenerator.webui.JmxConfigGeneratorApplication</Vaadin-Application>
                         <Vaadin-Alias>/${project.artifactId}</Vaadin-Alias>
                         <Include-Resource>src/main/webapp,{maven-resources}</Include-Resource>
@@ -56,8 +56,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <!-- Compiles your custom GWT components with the GWT compiler -->
